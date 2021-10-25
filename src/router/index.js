@@ -11,6 +11,11 @@ const routes = [
     component: Home,
   },
   {
+    path: "/userInfo",
+    name: "userInfo",
+    component: () => import("../views/UserInfo.vue"),
+  },
+  {
     path: "/auth/login",
     name: "login",
     component: () => import("../views/Login.vue"),
@@ -21,6 +26,11 @@ const routes = [
     name: "register",
     component: () => import("../views/Register.vue"),
     meta: { layout: "unauth" },
+  },
+  {
+    path: "/createContract",
+    name: "createContract",
+    component: () => import("../views/CreateContract"),
   },
   {
     path: "*",

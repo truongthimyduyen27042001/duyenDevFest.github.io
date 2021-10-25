@@ -1,7 +1,6 @@
 <template>
   <div class="default-inner">
     <Navbar />
-    <h1>This is default</h1>
     <slot />
     <Footer />
   </div>
@@ -19,4 +18,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+* {
+  background: #e2eee0;
+}
+</style>

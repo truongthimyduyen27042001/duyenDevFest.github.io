@@ -21,10 +21,10 @@
           </svg>
           <h3 class="brandname">Contractbook</h3>
         </li>
-        <li class="item-nav active">Dashboard</li>
-        <li class="item-nav">Documents</li>
-        <li class="item-nav">Templates</li>
-        <li class="item-nav">Teams</li>
+        <li class="item-nav active"><router-link to="/home">Home</router-link></li>
+        <li class="item-nav"><router-link to="/createContract">Create</router-link></li>
+        <li class="item-nav"><router-link to="/document">Document</router-link></li>
+        <li class="item-nav"><router-link to="/document">Search</router-link></li>
       </ul>
     </div>
     <div class="navbar__right">
@@ -100,6 +100,9 @@ export default {};
 *  {
   font-family: 'Roboto', sans-serif;
 
+}
+a:hover {
+  text-decoration: none!important;
 }
 ul {
   list-style: none;
