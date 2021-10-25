@@ -29,6 +29,7 @@ export default {
 * {
   margin: 0px;
   font-family: 'Roboto', sans-serif;
+  padding: 0px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -90,7 +90,7 @@ export default {
   padding: 10px 16px;
   border-radius: 50%;
   margin-right: 10px;
-  color: #fff;
+  color: #000;
   font-size: 15px; 
   font-weight: 500;
 }

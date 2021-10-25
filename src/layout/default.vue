@@ -20,6 +20,6 @@ export default {
 
 <style scoped>
 * {
-  background: #e2eee0;
+  background: #fff;
 }
 </style>
