@@ -1,7 +1,7 @@
 <template>
   <div class="init-container">
     <h4 class="content">Chọn cách khởi tạo hợp đồng</h4>
-    <div class="templateContract">Khởi tạo hợp đồng mẫu</div>
+    <div class="templateContract"><router-link to="/home">Khởi tạo hợp đồng mẫu</router-link></div>
     <div class="uploadContract">
       <div class="dropzone">
         <input
