@@ -9,20 +9,38 @@
       <span class="sideBar-category__heading">Private</span>
       <div class="sideBar-category__docs">
         <i class="fas fa-folder"></i>
-        My document
-        <div class="sideBar-category__doc">
-          <i class="fas fa-folder"></i> <span>Employee Contracts</span>
+        Hợp đồng dài hạn (3)
+      </div>
+      <div class="sideBar-category__docs">
+        <i class="fas fa-folder"></i>
+        Hợp đồng ngắn hạn (4)
+      </div>
+      <div class="add-more-folder" @click="isAddingFile = !isAddingFile">
+        <i class="fas fa-plus-square"></i>
+        Thêm thư mục
+      </div>
+      <div class="add-new" v-if="isAddingFile">
+        <div class="add-file-new">
+          <i class="fas fa-folder"></i>
+          <input type="text" />
         </div>
+        <button type="button" class="btn btn-secondary">Thêm</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isAddingFile: false,
+    };
+  },
+};
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .sideBar {
   height: 100vh;
   width: 18rem;
@@ -34,20 +52,21 @@ export default {};
   flex-direction: column;
   align-items: center;
 }
-.sideBar-create {
+button {
   margin-top: 2rem;
   padding: 0.8rem 1.4rem;
   outline: none;
   border: none;
-  background-color: #75e95e;
+  background-color: #49c79f;
   font-weight: 700;
+  border-radius: 5px;
   color: #fff;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 .sideBar-search input {
   margin-top: 1rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.6rem 1rem;
   outline: none;
 }
 .sideBar-search {
@@ -61,25 +80,63 @@ export default {};
   font-size: 1rem;
 }
 .sideBar-category {
-    text-align: left;
-  width: 80%;
+  text-align: left;
 }
 .sideBar-category__heading {
-  font-size: 1.4rem;
   color: #c4c4c4;
   margin-top: 2rem;
   margin-bottom: 1rem;
   display: inline-block;
 }
-.sideBar-category__docs {
-  font-size: 1.2rem;
+.sideBar-category__doc {
+  margin-top: 0.6rem;
+  margin-left: 1rem;
+  cursor: pointer;
 }
 .sideBar-category__docs i {
   margin-right: 0.4rem;
   color: #c4c4c4;
 }
-.sideBar-category__doc {
-  margin-top: 0.6rem;
-  margin-left: 1rem;
+.add-more-folder {
+  font-size: 15px;
+  margin-top: 10px;
+  cursor: pointer;
 }
+.add-new {
+  .add-file-new {
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 5px 8px;
+    border: transparent;
+    background-color: #49c79f;
+    transition: 0.8s;
+  }
+  button:focus {
+    box-shadow: none !important;
+  }
+}
+.add-file-new i {
+  margin-right: 10px !important;
+}
+input {
+      padding-left: 1rem;
+      padding: 0.4375rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      line-height: 1.25rem;
+      color: #3c4d62;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #dbdfea;
+      border-radius: 4px;
+    }
+    input:focus {
+      color: #3c4d62;
+      background-color: #fff;
+      border-color: #854fff;
+      outline: 0;
+      box-shadow: 0 0 0 3px rgb(133 79 255 / 10%);
+    }
 </style>

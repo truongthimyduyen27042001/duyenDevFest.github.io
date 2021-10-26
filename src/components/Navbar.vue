@@ -2,31 +2,36 @@
   <div class="navbar-container">
     <div class="navbar__left">
       <ul class="list-nav-item">
-        <li class="item-nav brand active">
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="file-signature"
-            class="svg-inline--fa fa-file-signature fa-w-18"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-          >
-            <path
-              fill="currentColor"
-              d="M218.17 424.14c-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34c-6.37 12.78-25.03 11.37-29.48-2.09L144 386.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.75-16.19 54.06-9.7 66 14.16 1.89 3.78 5.49 5.95 9.36 6.26v-82.12l128-127.09V160H248c-13.2 0-24-10.8-24-24V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24v-40l-128-.11c-16.12-.31-30.58-9.28-37.83-23.75zM384 121.9c0-6.3-2.5-12.4-7-16.9L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1zm-96 225.06V416h68.99l161.68-162.78-67.88-67.88L288 346.96zm280.54-179.63l-31.87-31.87c-9.94-9.94-26.07-9.94-36.01 0l-27.25 27.25 67.88 67.88 27.25-27.25c9.95-9.94 9.95-26.07 0-36.01z"
-            ></path>
-          </svg>
-          <h3 class="brandname">E-contract</h3>
+        <li class="brand">
+          <a class="sidebar__logo d-flex align-items-center" href="index.html">
+            <img
+              class="sidebar__logo-icon"
+              src="../assets/images/logotype.svg"
+              alt="#"
+              style="width: 44px"
+            />
+            <div class="sidebar__logo-text">E-Contract</div>
+          </a>
         </li>
-        <li class="item-nav active">
-          <router-link to="/home">Home</router-link>
+        <li
+          class="item-nav"
+          @click="currentPage = 'Home'"
+          :class="currentPage == 'Home' ? 'active' : ''"
+        >
+          <router-link to="/">Home</router-link>
         </li>
-        <li class="item-nav">
+        <li
+          class="item-nav"
+          @click="currentPage = 'Create'"
+          :class="currentPage == 'Create' ? 'active' : ''"
+        >
           <router-link to="/createContract">Create</router-link>
         </li>
-        <li class="item-nav">
+        <li
+          class="item-nav"
+          @click="currentPage = 'Document'"
+          :class="currentPage == 'Document' ? 'active' : ''"
+        >
           <router-link to="/document">Document</router-link>
         </li>
       </ul>
@@ -69,7 +74,78 @@
             ></path>
           </svg>
         </li>
-        <li class="item-nav">
+        <li
+          class="item-nav account account__login"
+          onMouseEnter="{showPopover}"
+          onMouseLeave="{hidePopover}"
+          v-if="isLogin"
+        >
+          <svg
+            aria-hidden="true"
+            style="width: 25px"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="user"
+            class="svg-inline--fa fa-user fa-w-14"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="currentColor"
+              d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+            />
+          </svg>
+          <img
+            src="https://scontent.fhan14-1.fna.fbcdn.net/v/t1.15752-9/246363487_580700436528500_8455566915423897883_n.png?_nc_cat=101&ccb=1-5&_nc_sid=ae9488&_nc_ohc=BfdZnkOoiIIAX_eJI5I&_nc_ht=scontent.fhan14-1.fna&oh=ca9d9a4db93b2c397344beb51660eb53&oe=6178B361"
+            alt=""
+            class="item-nav__img"
+          />
+          <p>Truong my duyen</p>
+          <div class="text-center my-3 control__account">
+            <b-button id="popover-target-1">
+              <svg
+                style="width: 17px"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="caret-square-down"
+                class="svg-inline--fa fa-caret-square-down fa-w-14"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zM92.5 220.5l123 123c4.7 4.7 12.3 4.7 17 0l123-123c7.6-7.6 2.2-20.5-8.5-20.5H101c-10.7 0-16.1 12.9-8.5 20.5z"
+                />
+              </svg>
+            </b-button>
+            <b-popover
+              target="popover-target-1"
+              triggers="hover"
+              placement="top"
+            >
+              <ul class="nav-menu">
+                <li>
+                  <a class="nav-menu__link">Tài khoản</a>
+                </li>
+                <li>
+                  <a class="nav-menu__link"> Đăng xuất </a>
+                </li>
+              </ul>
+            </b-popover>
+          </div>
+        </li>
+        <li v-else class="item-nav account">
+          <GoogleLogin
+            :params="params"
+            :renderParams="renderParams"
+            :onSuccess="onSuccess"
+            :onFailure="onFailure"
+            @click="login()"
+            >Login</GoogleLogin
+          >
         </li>
       </ul>
     </div>
@@ -78,6 +154,18 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isLogin: true,
+      currentPage: "Home",
+    };
+  },
+  methods: {
+    async login() {
+      const googleUser = await this.$gAuth.signIn();
+      console.log(googleUser);
+    },
+  },
 };
 </script>
 
@@ -94,6 +182,12 @@ svg {
   width: 17px !important;
   margin-right: 5px;
 }
+p {
+  margin-bottom: 0px;
+}
+a {
+  text-decoration: none;
+}
 .nav {
   position: fixed;
   top: 0;
@@ -104,7 +198,8 @@ svg {
   display: flex;
   flex-direction: rows;
   justify-content: space-between;
-  background: rgb(235, 229, 230);
+  padding: 0px 20px;
+  border-bottom: 1px solid #e5e9f2;
 }
 
 .navbar-container .navbar__left {
@@ -112,7 +207,11 @@ svg {
 }
 
 .navbar-container .navbar__left .brand svg {
-  color: #1e15f9;
+  color: #8a8787;
+}
+.brand a {
+  text-decoration: none;
+  color: #8a8787;
 }
 .brandname {
   font-size: 24px;
@@ -128,9 +227,6 @@ svg {
   color: #0000;
   font-size: 14px !important;
 }
-.item-nav {
-  border-right: 0.5px solid #dddada;
-}
 .item-nav__img {
   width: 40px;
   height: 40px;
@@ -143,7 +239,8 @@ svg {
 .list-nav-item {
   display: flex;
 }
-.item-nav {
+.item-nav,
+.brand {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,17 +248,28 @@ svg {
   font-size: 16px;
   font-weight: 500;
   color: #8a8787;
-  padding: 15px 8px;
+  padding: 8px 5px;
   transition: 0.2s ease-in !important;
 }
+.item-nav {
+  a {
+    text-decoration: none;
+    color: #8a8787;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
 
-.item-nav:hover,
 .active {
-  color: #a29dd2 !important;
+  a {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
 }
 .nav-menu {
-  height: 6rem;
-  width: 10rem;
+  padding: 10px 0px;
   color: #000;
   display: flex;
   flex-direction: column;
@@ -169,5 +277,19 @@ svg {
 }
 .nav-menu__link {
   padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 20px;
+}
+.control__account button {
+  background: #fff;
+  border: #fff;
+  padding: 0px;
+}
+.control__account button:focus {
+  box-shadow: none;
+}
+.control__account svg {
+  color: #8a8787;
 }
 </style>

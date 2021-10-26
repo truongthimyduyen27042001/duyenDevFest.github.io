@@ -35,10 +35,12 @@ export default {
       statusContract: "All",
       listContract: [
         {
-          id: "contract1",
+          id: "contraclđsd",
           name_contract: "Shareholder AgreementRRRRRRR",
           time_contract: "2009",
-          type_contract: "Short tearm",
+          type_contract: "Short term",
+          position: "PM",
+          numberContract: "..../2017/HĐLĐ",
           company: {
             name: "Paradox",
             role: "lorem ipsum dolor sit atmet consectur adiciping elit",
@@ -53,7 +55,9 @@ export default {
           id: "contract1",
           name_contract: "Shareholder AgreementQQQ",
           time_contract: "2019",
-          type_contract: "Short tearm",
+          type_contract: "Short term",
+          position: "Fe",
+          numberContract: "..../2017/HĐLĐ",
           company: {
             name: "Paradox",
             role: "lorem ipsum dolor sit atmet consectur adiciping elit",
@@ -68,7 +72,9 @@ export default {
           id: "contract1",
           name_contract: "Shareholder AgreementAAA",
           time_contract: "2010",
-          type_contract: "Long tearm",
+          type_contract: "Long term",
+          position: "BE",
+          numberContract: "..../2017/HĐLĐ",
           company: {
             name: "Paradox",
             role: "lorem ipsum dolor sit atmet consectur adiciping elit",
@@ -83,7 +89,9 @@ export default {
           id: "contract1",
           name_contract: "Shareholder AgreementBBBB",
           time_contract: "2010",
-          type_contract: "Long tearm",
+          type_contract: "Long term",
+          position: "Mobile",
+          numberContract: "..../2017/HĐLĐ",
           company: {
             name: "Paradox",
             role: "lorem ipsum dolor sit atmet consectur adiciping elit",

@@ -3,16 +3,43 @@
     <div class="miniNav-container">
       <h1 class="miniNav-heading">My Document</h1>
       <div class="miniNav-category">
-        <div class="miniNav-category__item active" @click="changeStatus('All')">
+        <div
+          class="miniNav-category__item"
+          :class="currentContract == 'All' ? 'active' : ''"
+          @click="
+            changeStatus('All');
+            currentContract = 'All';
+          "
+        >
           <p>All Documents</p>
         </div>
-        <div class="miniNav-category__item" @click="changeStatus('Draft')">
+        <div
+          class="miniNav-category__item"
+          :class="currentContract == 'Draft' ? 'active' : ''"
+          @click="
+            changeStatus('Draft');
+            currentContract = 'Draft';
+          "
+        >
           <p>Draft</p>
         </div>
-        <div class="miniNav-category__item" @click="changeStatus('Pending')">
+        <div
+          class="miniNav-category__item"
+          :class="currentContract == 'Pending' ? 'active' : ''"
+          @click="
+            changeStatus('Pending');
+            currentContract = 'Pending';
+          "
+        >
           <p>Pending</p>
         </div>
-        <div class="miniNav-category__item" @click="changeStatus('Signed')">
+        <div
+          class="miniNav-category__item"
+          @click="
+            changeStatus('Signed');
+            currentContract = 'Signed';
+          "
+        >
           <p>Signed</p>
         </div>
       </div>
@@ -24,6 +51,11 @@
 export default {
   name: "miniNav",
   props: ["choiceTypeContract"],
+  data() {
+    return {
+      currentContract: "Draft",
+    };
+  },
   methods: {
     changeStatus: function (status) {
       this.$emit("changeStatus", status);
@@ -33,6 +65,9 @@ export default {
 </script>
 
 <style scoped>
+p {
+  margin-bottom: 0px !important;
+}
 .miniNav-container {
   margin: 1rem 4rem;
 }
@@ -52,7 +87,7 @@ export default {
   padding: 0.8rem 1.2rem;
 }
 .miniNav-category__item.active {
-  background: #ebebeb;
+  background: rgba(0, 0, 0, 0.05);
   color: #000;
   border-bottom: 2px solid #eec4ce;
 }

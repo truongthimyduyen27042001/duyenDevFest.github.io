@@ -24,22 +24,20 @@
     <div class="box-content">
       <h4 class="box-heading">{{ contract.name_contract }}</h4>
       <p class="box-desc">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore,
-        perspiciatis pariatur! Autem assumenda, odio reprehenderit fuga facilis
-        dolore itaque beatae.
+        {{contract.numberContract}}
       </p>
       <div class="box-tags">
-        <div class="box-tag bg-dark">
+      <div class="box-tag bg-dark">
           <i class="fas fa-tag"></i>
-          <p>{{ contract.time_contract }}</p>
+          <p>{{ contract.position }}</p>
         </div>
         <div class="box-tag bg-dark">
-          <i class="fas fa-tag"></i>
-          <p>Company</p>
-        </div>
-        <div class="box-tag">
           <i class="fas fa-tag"></i>
           <p>{{ contract.type_contract }}</p>
+        </div>
+        <div class="box-tag bg-dark">
+          <i class="fas fa-tag"></i>
+          <p>{{contract.time_contract}}</p>
         </div>
       </div>
     </div>
@@ -99,6 +97,7 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 .box-right__content {
   text-align: left;
@@ -217,7 +216,7 @@ export default {
 }
 .box-desc {
   margin: 0.4rem 0;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   line-height: 1.4;
   text-align: left;
 }
@@ -234,6 +233,7 @@ export default {
   border-radius: 0.2rem;
   margin: 0 0.2rem;
   border: 1px solid #e0e0e0;
+  background: #1d163f!important;
 }
 .bg-dark {
   background: #e0e0e0;
@@ -256,23 +256,26 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.box-right i {
+  color: #49c79f!important;
+
+}
 .box-right__heading {
   font-size: 1rem;
 }
 .box-right__desc {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 .box-right__item {
   display: flex;
   align-items: center;
-  margin: 0.6rem 0;
+  margin: 0.8rem 0;
 }
 .box-right__icon {
   display: flex;
 }
 .box-right__icon i {
   font-size: 0.8rem;
-  color: #59b147a4;
   margin-right: 1rem;
 }
 .box-right__icon i:nth-child(1) {
@@ -284,7 +287,7 @@ export default {
   display: flex;
 }
 .btn {
-  padding: 0.3rem 0.6rem;
+  padding: 0.3rem 0.8rem;
   outline: none;
   border: none;
   cursor: pointer;

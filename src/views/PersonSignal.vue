@@ -1,6 +1,93 @@
 <template>
   <div class="personSignal">
     <form action="" class="form-sign-info">
+      <v-row>
+        <v-col cols="12" sm="6" md="4">
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            :return-value.sync="date"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Picker in menu"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" no-title scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+              <v-btn text color="primary" @click="$refs.menu.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-spacer></v-spacer>
+        <v-col cols="12" sm="6" md="4">
+          <v-dialog
+            ref="dialog"
+            v-model="modal"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Picker in dialog"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-col>
+        <v-col cols="12" sm="6" md="4">
+          <v-menu
+            v-model="menu2"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Picker without buttons"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="date"
+              @input="menu2 = false"
+            ></v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
       <h5 class="content">Lựa chọn vai trò người đăng ký</h5>
       <div class="person-choice">
         <div class="form-check">
@@ -9,7 +96,7 @@
             type="radio"
             name="role"
             id="employer"
-            value="Doanh nghiệp"
+            value="employer"
             v-model="selectedRole"
             checked
           />
@@ -21,7 +108,7 @@
             type="radio"
             name="role"
             id="employee"
-            value="Người lao động"
+            value="employee"
             v-model="selectedRole"
           />
           <label class="form-check-label" for="employee">
@@ -83,48 +170,95 @@
             <div class="error">* Bắt buộc</div>
           </form>
           <h6 class="role">Bạn đang đăng ký với vai trò {{ selectedRole }}</h6>
-          <div
-            class="list-form-question"
-            v-for="question in employerQuestions"
-            :key="question.id"
-          >
-            <form
-              action=""
-              class="form-info"
-              :class="question.checkAns ? '' : 'form-error'"
+          <div v-if="selectedRole === 'employer'">
+            <div
+              class="list-form-question"
+              v-for="question in employerQuestions"
+              :key="question.id"
             >
-              <label for=""
-                >{{ question.label }}
-                <span class="error" v-if="question.isRequired">*</span></label
+              <form
+                action=""
+                class="form-info"
+                :class="question.checkAns ? '' : 'form-error'"
               >
-              <div class="field-input">
-                <input type="text" placeholder="Câu trả lời của bạn" />
-                <div
-                  class="input-outline"
-                  :class="question.checkAns ? '' : 'input-outline-error'"
-                ></div>
-              </div>
-              <div v-if="question.checkAns"></div>
-              <div v-else class="error-require error">
-                <svg
-                  style="width: 17px"
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="exclamation-circle"
-                  class="svg-inline--fa fa-exclamation-circle fa-w-16"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
+                <label for=""
+                  >{{ question.label }}
+                  <span class="error" v-if="question.isRequired">*</span></label
                 >
-                  <path
-                    fill="currentColor"
-                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-                  ></path>
-                </svg>
-                Đây là một câu hỏi bắt buộc
-              </div>
-            </form>
+                <div class="field-input">
+                  <input type="text" placeholder="Câu trả lời của bạn" />
+                  <div
+                    class="input-outline"
+                    :class="question.checkAns ? '' : 'input-outline-error'"
+                  ></div>
+                </div>
+                <div v-if="question.checkAns"></div>
+                <div v-else class="error-require error">
+                  <svg
+                    style="width: 17px"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fas"
+                    data-icon="exclamation-circle"
+                    class="svg-inline--fa fa-exclamation-circle fa-w-16"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                    ></path>
+                  </svg>
+                  Đây là một câu hỏi bắt buộc
+                </div>
+              </form>
+            </div>
+          </div>
+          <div v-else>
+            <div
+              class="list-form-question"
+              v-for="question in employeeQuestions"
+              :key="question.id"
+            >
+              <form
+                action=""
+                class="form-info"
+                :class="question.checkAns ? '' : 'form-error'"
+              >
+                <label for=""
+                  >{{ question.label }}
+                  <span class="error" v-if="question.isRequired">*</span></label
+                >
+                <div class="field-input">
+                  <input type="text" placeholder="Câu trả lời của bạn" />
+                  <div
+                    class="input-outline"
+                    :class="question.checkAns ? '' : 'input-outline-error'"
+                  ></div>
+                </div>
+                <div v-if="question.checkAns"></div>
+                <div v-else class="error-require error">
+                  <svg
+                    style="width: 17px"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fas"
+                    data-icon="exclamation-circle"
+                    class="svg-inline--fa fa-exclamation-circle fa-w-16"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                    ></path>
+                  </svg>
+                  Đây là một câu hỏi bắt buộc
+                </div>
+              </form>
+            </div>
           </div>
           <div class="btn-add-more m-left">
             <button
@@ -196,6 +330,10 @@
         </div>
       </div>
     </form>
+    <div class="control-step">
+      <button type="button" class="btn btn-outline-primary">Quay lại</button>
+      <button type="button" class="btn btn-outline-primary">Tiếp theo</button>
+    </div>
   </div>
 </template>
 
@@ -203,73 +341,165 @@
 export default {
   data() {
     return {
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
       employerQuestions: [
         {
+          id: "questions111",
+          label: "Ngày/tháng/năm ký hợp đồng",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
           id: "question1",
-          label: "Ngày/tháng/năm",
+          label: "Số hợp đồng",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question2",
-          label: "Đại diện",
+          label: "Địa điểm ký",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question3",
-          label: "Chức vụ",
+          label: "Bên A (Người sử dụng lao động)",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question4",
-          label: "Địa chỉ",
+          label: "Đại diện",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "questions4",
+          label: "Chức vụ",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question5",
-          label: "Số điện thoại",
+          label: "Quốc tịch",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question6",
-          label: "Email",
+          label: "Địa chỉ",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question7",
-          label: "Số CMND",
+          label: "Điện thoại",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question8",
-          label: "Ngày cấp",
+          label: "Mã số thuế",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question9",
-          label: "Nơi cấp",
+          label: "Số tài khoản",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
           id: "question10",
-          label: "Tài khoản ngân hàng",
+          label: "Tài khoản",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+      ],
+      employeeQuestions: [
+        {
+          id: "question11",
+          label: "Bên B (Người lao động)",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question12",
+          label: "Ngày/tháng/năm sinh",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question13",
+          label: "Giới tính",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question14",
+          label: "Quê quán",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question15",
+          label: "Địa điểm thường trú",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question16",
+          label: "Số CMND",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question17",
+          label: "Ngày cấp",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question18",
+          label: "Trình độ",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question19",
+          label: "Chuyên ngành",
+          answer: "",
+          checkAns: true,
+          isRequired: true,
+        },
+        {
+          id: "question20",
+          label: "Số chứng minh nhân dân",
           answer: "",
           checkAns: true,
           isRequired: true,
@@ -277,7 +507,7 @@ export default {
       ],
       newQuestion: {
         id: "",
-        label: "",
+        label: "Đã được thêm",
         answer: "",
         checkAns: true,
         isRequired: true,
@@ -290,10 +520,8 @@ export default {
     addNewField() {
       this.isAddingNew = !this.isAddingNew;
     },
-    acceptAdd: function () {
+    async acceptAdd() {
       this.isAddingNew = false;
-      this.newQuestion.id = this.$uuid.v4();
-      this.employerQuestions.push(this.newQuestion);
       this.newQuestion.label = "";
       this.newQuestion.answer = "";
     },
@@ -356,10 +584,15 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
+.personSignal {
+  background: #fff;
+  padding-top: 30px;
+}
 .personSignal .form-sign-info {
   margin: auto;
   padding: 20px 30px;
   width: 700px;
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 .person-choice {
   display: flex;
@@ -389,6 +622,7 @@ form {
 }
 .form-info {
   position: relative;
+  background: #fff;
 }
 .form-info label {
   margin-bottom: 20px;
@@ -482,5 +716,13 @@ svg {
 }
 button:focus {
   box-shadow: none !important;
+}
+.control-step {
+  width: 700px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin: auto;
+  padding-top: 20px;
 }
 </style>

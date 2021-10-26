@@ -10,8 +10,14 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import UUID from "vue-uuid";
 import axios from "axios";
+import datePicker from "vue-bootstrap-datetimepicker";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
 
-Vue.use(VueAxios, axios);
+Vue.use(Vuetify);
+
+Vue.use(datePicker);
+Vue.use(axios);
 Vue.use(UUID);
 library.add(faUserSecret);
 
@@ -27,11 +33,11 @@ new Vue({
 }).$mount("#app");
 
 import GAuth from "vue-google-oauth2";
-import VueAxios from "vue-axios";
 const gauthOption = {
   clientId:
     "152975793561-50ejve7r84tv9ssak9n8jmsdi654mqbu.apps.googleusercontent.com",
   scope: "profile email",
-  prompt: "select_account",
+  prompt: "consent",
+  fetch_basic_profile: true,
 };
 Vue.use(GAuth, gauthOption);

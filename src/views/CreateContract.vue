@@ -7,15 +7,19 @@
         @click="setSelectComponent('personalSignal')"
         :class="{ active: isActive('personalSignal') }"
       >
-        <div class="step" :class="{ stepActive: isActive('personalSignal') }">1</div>
+        <div class="step" :class="{ stepActive: isActive('personalSignal') }">
+          1
+        </div>
         Thông tin người ký
       </li>
       <li
         class="step-create init-contract"
-        :class="{ active: isActive('initContract') }"
-        @click="setSelectComponent('initContract')"
+        :class="{ active: isActive('contract') }"
+        @click="setSelectComponent('contract')"
       >
-        <div class="step" :class="{ stepActive: isActive('initContract') }">2</div>
+        <div class="step" :class="{ stepActive: isActive('contract') }">
+          2
+        </div>
         Khởi tạo hợp đồng
       </li>
       <li
@@ -23,7 +27,9 @@
         :class="{ active: isActive('designcontract') }"
         @click="setSelectComponent('designcontract')"
       >
-        <div class="step" :class="{ stepActive: isActive('designcontract') }">3</div>
+        <div class="step" :class="{ stepActive: isActive('designcontract') }">
+          3
+        </div>
         Thiết kế hợp đồng
       </li>
       <li
@@ -44,16 +50,18 @@ import designcontract from "./DesignContract.vue";
 import confirm from "./Confirm.vue";
 import personalSignal from "./PersonSignal.vue";
 import initContract from "./InitContract.vue";
+import contract from "./Contract.vue";
 export default {
   components: {
     designcontract,
     confirm,
     personalSignal,
     initContract,
+    contract,
   },
   data() {
     return {
-      theSelectComponent: "initContract",
+      theSelectComponent: "personalSignal",
     };
   },
   methods: {
@@ -91,15 +99,16 @@ export default {
   border-radius: 50%;
   margin-right: 10px;
   color: #000;
-  font-size: 15px; 
+  font-size: 15px;
   font-weight: 500;
 }
 .stepActive {
-    background: #72767a !important;
+  background: #72767a !important;
+  color: #fff;
 }
 .active {
-    color: #72767a!important;
-    font-size: 16px;
-    font-weight: 600;
+  color: #72767a !important;
+  font-size: 16px;
+  font-weight: 600;
 }
 </style>
