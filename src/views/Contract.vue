@@ -1,17 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <h1>Lựa chọn loại hợp đồng</h1>
-      <div class="header-option">
-        <div class="header-option__item">
-          <input type="radio" id="long" name="contract" />
-          <label for="long"> Hợp đồng dài hạn</label>
-        </div>
-        <div class="header-option__item">
-          <input type="radio" id="long" name="contract" />
-          <label for="long"> Hợp đồng ngắn hạn</label>
-        </div>
-      </div>
+      <h1>Khởi tạo hợp đồng</h1>
     </div>
     <div class="contract">
       <div class="contract-header">
@@ -319,8 +309,6 @@ export default {};
   font-size: 1.4rem;
 }
 .contract {
-  margin-top: 40px;
-
   border-radius: 10px;
   background: #e4e4e4;
   padding: 40px 0;

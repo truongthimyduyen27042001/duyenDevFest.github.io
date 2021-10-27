@@ -13,9 +13,11 @@ import axios from "axios";
 import datePicker from "vue-bootstrap-datetimepicker";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
+Vue.component("v-select", vSelect);
 Vue.use(Vuetify);
-
 Vue.use(datePicker);
 Vue.use(axios);
 Vue.use(UUID);
@@ -26,11 +28,6 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
 
 import GAuth from "vue-google-oauth2";
 const gauthOption = {
@@ -41,3 +38,9 @@ const gauthOption = {
   fetch_basic_profile: true,
 };
 Vue.use(GAuth, gauthOption);
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount("#app");

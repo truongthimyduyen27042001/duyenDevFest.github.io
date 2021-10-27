@@ -1,9 +1,7 @@
 <template>
   <div class="init-container">
     <div>
-      <h4 class="content" v-if="isChoiceTemplate">
-        Chọn cách khởi tạo hợp đồng
-      </h4>
+      <h4 class="content" v-if="isChoiceTemplate">Khởi tạo hợp đồng</h4>
       <h4 class="content" v-else>Khởi tạo hợp đồng bằng hợp đồng mẫu</h4>
       <div v-if="isChoiceTemplate">
         <create-template :isChoiceTemplate="isChoiceTemplate" />

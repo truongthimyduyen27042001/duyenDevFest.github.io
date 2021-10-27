@@ -149,15 +149,33 @@
         </li>
       </ul>
     </div>
+    <button @click="addUser">Truong duyennnn</button>
   </div>
 </template>
 
 <script>
 export default {
+  name: "Navbar",
   data() {
     return {
-      isLogin: true,
+      isLogin: false,
       currentPage: "Home",
+      users: [],
+      userTemplte: {
+        name: "Duyen",
+        phoneNumber: "0799634057",
+        address: "62 Ngo Si Lien",
+        email: "truongthimyduyen27042001@gmail.com ",
+        idCard: "id_cart",
+        bankAccount: "0484811515115BANKACCOUNT",
+        issued0n: "isSuscjsdbsd",
+        idNo: "1",
+      },
+      newUsers: {
+        email: "letuan1235@gmail.com",
+        fullName: "Le Tuan",
+        role: 1,
+      },
     };
   },
   methods: {

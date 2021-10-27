@@ -170,7 +170,7 @@ footer {
 .footer-content-divider {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   .newletter-container {
     transform: translateX(-50%);
   }

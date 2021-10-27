@@ -1,121 +1,6 @@
 <template>
   <div class="personSignal">
     <form action="" class="form-sign-info">
-      <v-row>
-        <v-col cols="12" sm="6" md="4">
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :return-value.sync="date"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="date"
-                label="Picker in menu"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
-              <v-btn text color="primary" @click="$refs.menu.save(date)">
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-col>
-        <v-spacer></v-spacer>
-        <v-col cols="12" sm="6" md="4">
-          <v-dialog
-            ref="dialog"
-            v-model="modal"
-            :return-value.sync="date"
-            persistent
-            width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="date"
-                label="Picker in dialog"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="date" scrollable>
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="modal = false">
-                Cancel
-              </v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(date)">
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-dialog>
-        </v-col>
-        <v-col cols="12" sm="6" md="4">
-          <v-menu
-            v-model="menu2"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="date"
-                label="Picker without buttons"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="date"
-              @input="menu2 = false"
-            ></v-date-picker>
-          </v-menu>
-        </v-col>
-        <v-spacer></v-spacer>
-      </v-row>
-      <h5 class="content">Lựa chọn vai trò người đăng ký</h5>
-      <div class="person-choice">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="role"
-            id="employer"
-            value="employer"
-            v-model="selectedRole"
-            checked
-          />
-          <label class="form-check-label" for="employer"> Doanh nghiệp </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="role"
-            id="employee"
-            value="employee"
-            v-model="selectedRole"
-          />
-          <label class="form-check-label" for="employee">
-            Người lao động
-          </label>
-        </div>
-      </div>
       <div class="person-info">
         <div class="userInfo-container">
           <form action="" class="form-info from-info-account">
@@ -260,6 +145,10 @@
               </form>
             </div>
           </div>
+          <div class="person-choice d-flex">
+            <h4 class="choice-content">Chọn loại hợp đồng</h4>
+            <v-select :options="typeContract" label="title"></v-select>
+          </div>
           <div class="btn-add-more m-left">
             <button
               type="button"
@@ -330,10 +219,6 @@
         </div>
       </div>
     </form>
-    <div class="control-step">
-      <button type="button" class="btn btn-outline-primary">Quay lại</button>
-      <button type="button" class="btn btn-outline-primary">Tiếp theo</button>
-    </div>
   </div>
 </template>
 
@@ -347,6 +232,10 @@ export default {
       menu: false,
       modal: false,
       menu2: false,
+      typeContract: [
+        { title: "Hợp đồng dài hạn" },
+        { title: "Hợp đồng ngắn hạn" },
+      ],
       employerQuestions: [
         {
           id: "questions111",
@@ -532,7 +421,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal {
   display: none;
   position: fixed;
@@ -552,8 +441,8 @@ export default {
   border: 1px solid #888;
   width: 50%;
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: center;
 }
 .modal-content .form-info {
   margin-top: 0px;
@@ -596,7 +485,14 @@ export default {
 }
 .person-choice {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin-top: 20px;
+  .choice-content {
+    margin-right: 20px;
+  }
+  .form-check {
+    margin-right: 20px;
+  }
 }
 .userInfo-container {
   width: fit-content;

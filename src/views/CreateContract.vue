@@ -17,47 +17,64 @@
         :class="{ active: isActive('contract') }"
         @click="setSelectComponent('contract')"
       >
-        <div class="step" :class="{ stepActive: isActive('contract') }">
-          2
-        </div>
+        <div class="step" :class="{ stepActive: isActive('contract') }">2</div>
         Khởi tạo hợp đồng
       </li>
       <li
         class="step-create init-contract"
-        :class="{ active: isActive('designcontract') }"
-        @click="setSelectComponent('designcontract')"
+        :class="{ active: isActive('confirm') }"
+        @click="setSelectComponent('confirm')"
       >
-        <div class="step" :class="{ stepActive: isActive('designcontract') }">
-          3
-        </div>
-        Thiết kế hợp đồng
+        <div class="step" :class="{ stepActive: isActive('confirm') }">3</div>
+        Xác nhận hợp đồng
       </li>
       <li
         class="step-create init-contract"
         :class="{}"
-        @click="setSelectComponent('confirm')"
+        @click="setSelectComponent('doneContract')"
       >
-        <div class="step" :class="{ stepActive: isActive('confirm') }">4</div>
-        Xác nhận và hoàn tất
+        <div class="step" :class="{ stepActive: isActive('doneContract') }">
+          4
+        </div>
+        Hoàn tất
       </li>
     </ul>
     <component :is="theSelectComponent"></component>
+
+    <div class="control-step">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        @click="setReturn(theSelectComponent)"
+        :disabled="isReturn"
+      >
+        Quay lại
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        @click="setNext(theSelectComponent)"
+        :disabled="isNext"
+      >
+        Tiếp theo
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import designcontract from "./DesignContract.vue";
 import confirm from "./Confirm.vue";
 import personalSignal from "./PersonSignal.vue";
 import initContract from "./InitContract.vue";
 import contract from "./Contract.vue";
+import doneContract from "./DoneContract.vue";
 export default {
   components: {
-    designcontract,
     confirm,
     personalSignal,
     initContract,
     contract,
+    doneContract,
   },
   data() {
     return {
@@ -71,11 +88,39 @@ export default {
     setSelectComponent(menuItem) {
       this.theSelectComponent = menuItem;
     },
+    setNext(theSelectComponent) {
+      if (theSelectComponent === "personalSignal")
+        this.theSelectComponent = "contract";
+      if (theSelectComponent === "contract")
+        this.theSelectComponent = "confirm";
+      if (theSelectComponent === "confirm")
+        this.theSelectComponent = "doneContract";
+    },
+    setReturn(theSelectComponent) {
+      if (theSelectComponent === "doneContract")
+        this.theSelectComponent = "confirm";
+      if (theSelectComponent === "contract")
+        this.theSelectComponent = "personalSignal";
+      if (theSelectComponent === "confirm")
+        this.theSelectComponent = "contract";
+    },
+  },
+  computed: {
+    isReturn() {
+      return this.theSelectComponent === "personalSignal";
+    },
+    isNext() {
+      return this.theSelectComponent === "doneContract";
+    },
   },
 };
 </script>
 
 <style scoped>
+.create-container {
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
 .step-create {
   cursor: pointer;
 }
@@ -110,5 +155,16 @@ export default {
   color: #72767a !important;
   font-size: 16px;
   font-weight: 600;
+}
+button:focus {
+  box-shadow: none !important;
+}
+.control-step {
+  width: 700px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin: auto;
+  padding-top: 20px;
 }
 </style>

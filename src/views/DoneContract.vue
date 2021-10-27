@@ -1,6 +1,6 @@
 <template>
-  <div class="designcontract">
-    <h1>This is design contract</h1>
+  <div class="done-container">
+    <h1>This is done contract</h1>
   </div>
 </template>
 

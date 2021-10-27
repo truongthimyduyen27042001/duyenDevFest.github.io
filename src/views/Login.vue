@@ -1,5 +1,5 @@
 <template>
- <div class="wrapper">
+  <div class="wrapper">
     <div class="login-container">
       <div class="login-container__left"></div>
       <div class="login-container__right">
@@ -24,16 +24,55 @@
         </p>
       </div>
     </div>
-
- </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  name: "Login",
+  async created() {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@222");
+    const response = await axios
+      .post("https://60dc2b83c2b6280017feb762.mockapi.io/todolist/devFest", {
+        id: "isdsdnsjdsd",
+        name: "Ten",
+        phoneNumber: "so dien thoai",
+        email: "thu nghiem",
+        idCard: "thu nghiem",
+        bankAccount: "thu nghiem",
+        issued0n: "thu nghiem",
+        idNo: "thu nghiem",
+        description: "thu nghiem",
+      })
+      .then(function (response) {
+        console.log(response);
+        location.reload();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    alert("Truong my duyen");
+    this.users = response.data;
+  },
+  data() {
+    return {
+      user: {
+        name: "Duyen",
+        phoneNumber: "0799634057",
+        address: "62 Ngo Si Lien",
+        email: "truongthimyduyen27042001@gmail.com ",
+        idCard: "id_cart",
+        bankAccount: "0484811515115BANKACCOUNT",
+        issued0n: "isSuscjsdbsd",
+        idNo: "1",
+      },
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 @import "../assets/scss/style.scss";
 
 @mixin font-style-1 {
@@ -181,4 +220,3 @@ export default {};
   }
 }
 </style>
-
