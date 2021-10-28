@@ -3,7 +3,7 @@
     <div class="navbar__left">
       <ul class="list-nav-item">
         <li class="brand">
-          <a class="sidebar__logo d-flex align-items-center" href="index.html">
+          <a class="sidebar__logo d-flex align-items-center" href="/">
             <img
               class="sidebar__logo-icon"
               src="../assets/images/logotype.svg"
@@ -138,22 +138,16 @@
           </div>
         </li>
         <li v-else class="item-nav account">
-          <GoogleLogin
-            :params="params"
-            :renderParams="renderParams"
-            :onSuccess="onSuccess"
-            :onFailure="onFailure"
-            @click="login()"
-            >Login</GoogleLogin
-          >
+          <button @click="login()">Login</button>
         </li>
+        <li><button @click="traodoi()">Chuyen du lieu</button></li>
       </ul>
     </div>
-    <button @click="addUser">Truong duyennnn</button>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Navbar",
   data() {
@@ -181,7 +175,29 @@ export default {
   methods: {
     async login() {
       const googleUser = await this.$gAuth.signIn();
-      console.log(googleUser);
+      const authResponse = googleUser.getAuthResponse();
+      console.log(authResponse);
+      // const userAccount = await axios.post(
+      //   "https://e-con.herokuapp.com/a/api/signin/",
+      //   authResponse
+      // );
+      localStorage.setItem("auth", JSON.stringify(authResponse.data));
+      console.log("Dang nhap thanh cong!");
+    },
+    async traodoi() {
+      const newEmployee = {
+        id: "haha",
+        address: "da them va22222o",
+        email: "myduyentruong@gmail.com",
+        name: "truong my duyen",
+        phone: "0789952262",
+      };
+      const userAccount = await axios.post(
+        "https://e-con.herokuapp.com/a/api/employee/",
+        newEmployee
+      );
+      console.log(userAccount);
+      console.log("djsansas");
     },
   },
 };

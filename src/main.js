@@ -9,17 +9,17 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import UUID from "vue-uuid";
-import axios from "axios";
 import datePicker from "vue-bootstrap-datetimepicker";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import { firestorePlugin } from "vuefire";
 
 Vue.component("v-select", vSelect);
 Vue.use(Vuetify);
+Vue.use(firestorePlugin);
 Vue.use(datePicker);
-Vue.use(axios);
 Vue.use(UUID);
 library.add(faUserSecret);
 
@@ -27,7 +27,6 @@ Vue.component("fa", FontAwesomeIcon);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
-
 
 import GAuth from "vue-google-oauth2";
 const gauthOption = {

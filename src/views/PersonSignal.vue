@@ -54,7 +54,6 @@
             </div>
             <div class="error">* Bắt buộc</div>
           </form>
-          <h6 class="role">Bạn đang đăng ký với vai trò {{ selectedRole }}</h6>
           <div v-if="selectedRole === 'employer'">
             <div
               class="list-form-question"
@@ -252,13 +251,6 @@ export default {
           isRequired: true,
         },
         {
-          id: "question2",
-          label: "Địa điểm ký",
-          answer: "",
-          checkAns: true,
-          isRequired: true,
-        },
-        {
           id: "question3",
           label: "Bên A (Người sử dụng lao động)",
           answer: "",
@@ -422,6 +414,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .modal {
   display: none;
   position: fixed;
