@@ -57,7 +57,7 @@
           <div v-if="selectedRole === 'employer'">
             <div
               class="list-form-question"
-              v-for="(question, index) in employerQuestions"
+              v-for="question in employeeQuestions"
               :key="question.id"
             >
               <form
@@ -70,12 +70,7 @@
                   <span class="error" v-if="question.isRequired">*</span></label
                 >
                 <div class="field-input">
-                  <input
-                    v-model="employerQuestions[index].answer"
-                    :id="'anwser-' + index"
-                    type="text"
-                    placeholder="Câu trả lời của bạn"
-                  />
+                  <input type="text" placeholder="Câu trả lời của bạn" />
                   <div
                     class="input-outline"
                     :class="question.checkAns ? '' : 'input-outline-error'"
@@ -107,7 +102,7 @@
           <div v-else>
             <div
               class="list-form-question"
-              v-for="(question, index) in employerQuestions"
+              v-for="question in employeeQuestions"
               :key="question.id"
             >
               <form
@@ -120,12 +115,7 @@
                   <span class="error" v-if="question.isRequired">*</span></label
                 >
                 <div class="field-input">
-                  <input
-                    v-model="employerQuestions[index].answer"
-                    :id="'anwser-' + index"
-                    type="text"
-                    placeholder="Câu trả lời của bạn"
-                  />
+                  <input type="text" placeholder="Câu trả lời của bạn" />
                   <div
                     class="input-outline"
                     :class="question.checkAns ? '' : 'input-outline-error'"
@@ -153,10 +143,6 @@
                 </div>
               </form>
             </div>
-          </div>
-          <div class="person-choice d-flex">
-            <h4 class="choice-content">Chọn loại hợp đồng</h4>
-            <v-select :options="typeContract" label="title"></v-select>
           </div>
           <div class="btn-add-more m-left">
             <button
@@ -235,21 +221,9 @@
 
 <script>
 import http from "../api/http-common.js";
-import _cloneDeep from "lodash/cloneDeep";
 export default {
-  model: {
-    prop: "contract",
-    event: "update",
-  },
-  props: {
-    contract: {
-      type: Object,
-      require: true,
-    }
-  },
   data() {
     return {
-      myContract: {},
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -261,93 +235,73 @@ export default {
         { title: "Hợp đồng ngắn hạn" },
       ],
       newEmployee: false,
-      employer: {
-        emailEmployee: "",
-        dateSigned: "",
-        numberContract: "sdsdsdsdssd",
-        nameEmployer: "",
-      },
-      employerQuestions: [
+      employeeQuestions: [
         {
-          id: "âsaasasas",
-          label: "Email người lao động",
-          answer: "dsdhsudhd",
-          checkAns: true,
-          isRequired: true,
-        },
-        {
-          id: "questions1sdsdsds11",
-          label: "Ngày/tháng/năm ký hợp đồng",
+          id: "question11",
+          label: "Bên B (Người lao động)",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question1",
-          label: "Số hợp đồng",
+          id: "question112222",
+          label: "Địa chỉ email",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question3",
-          label: "Bên A (Người sử dụng lao động)",
+          id: "question12",
+          label: "Ngày/tháng/năm sinh",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question4",
-          label: "Đại diện",
+          id: "question13",
+          label: "Giới tính",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "questions4",
-          label: "Chức vụ",
+          id: "question14",
+          label: "Quê quán",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question5",
-          label: "Quốc tịch",
+          id: "question15",
+          label: "Địa điểm thường trú",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question6",
-          label: "Địa chỉ",
+          id: "question16",
+          label: "Số CMND",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question7",
-          label: "Điện thoại",
+          id: "question17",
+          label: "Ngày cấp",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question8",
-          label: "Mã số thuế",
+          id: "question18",
+          label: "Trình độ",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question9",
-          label: "Số tài khoản",
-          answer: "",
-          checkAns: true,
-          isRequired: true,
-        },
-        {
-          id: "question10",
-          label: "Tài khoản",
+          id: "question19",
+          label: "Chuyên ngành",
           answer: "",
           checkAns: true,
           isRequired: true,
@@ -364,17 +318,6 @@ export default {
       selectedRole: "",
     };
   },
-  mounted() {
-    this.myContract = _cloneDeep(this.contract);
-  },
-  watch: {
-    myContract: {
-      handler() {
-        this.updateContract();
-      },
-      deep: true,
-    }
-  },
   methods: {
     addNewField() {
       this.isAddingNew = !this.isAddingNew;
@@ -390,24 +333,22 @@ export default {
     async sendData() {
       console.log("@@@@@@@@@@@@@22");
       this.newEmployee = {
-        id: "kkkkk",
-        dataSigned: "12/12/2020",
-        numberContract: "0115150",
-        name: "Ten nguoi thue lao dong",
+        id: "hihihihihihhihihi",
+        name: "Ten nguoi lao dong",
         email: "myduyentruong@gmail.com",
         dateOfBirth: "20/11/2020",
         sex: "male",
-        homeTown: "Da Nang",
-        address: "Dia chi thuong tru",
+        homeTown: "Da Nang", 
+        address: "Dia chi thuong tru2222",
         CMND: "20181515151515",
         dateCertification: "31/07/2021",
         level: "Trung cấp",
         major: "CNTT",
         phone: "0789952262",
       };
-      const userAccount = await http.post("/a/api/employee/", this.employer);
+      const userAccount = await http.post("/a/api/employee/", this.newEmployee);
       console.log(userAccount);
-      console.log("thanh cong");
+      console.log("djsansas");
     },
   },
 };

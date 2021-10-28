@@ -52,7 +52,7 @@ export default {
           status_contract: "Signed",
         },
         {
-          id: "contract1",
+          id: "contract12223",
           name_contract: "Shareholder AgreementQQQ",
           time_contract: "2019",
           type_contract: "Short term",
@@ -69,7 +69,7 @@ export default {
           status_contract: "Draft",
         },
         {
-          id: "contract1",
+          id: "contract134",
           name_contract: "Shareholder AgreementAAA",
           time_contract: "2010",
           type_contract: "Long term",
@@ -86,7 +86,7 @@ export default {
           status_contract: "Pending",
         },
         {
-          id: "contract1",
+          id: "contract1122",
           name_contract: "Shareholder AgreementBBBB",
           time_contract: "2010",
           type_contract: "Long term",
@@ -137,6 +137,8 @@ export default {
 <style scoped>
 .document-container {
   display: flex;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .document__right {
   width: 100%;

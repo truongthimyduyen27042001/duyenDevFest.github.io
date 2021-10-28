@@ -4,10 +4,10 @@
     <ul class="list-step-create-contract row">
       <li
         class="step-create init-contract col-3"
-        @click="setSelectComponent('personalSignal')"
-        :class="{ active: isActive('personalSignal') }"
+        @click="setSelectComponent('employeeSignal')"
+        :class="{ active: isActive('employeeSignal') }"
       >
-        <div class="step" :class="{ stepActive: isActive('personalSignal') }">
+        <div class="step" :class="{ stepActive: isActive('employeeSignal') }">
           1
         </div>
         Thông tin người ký
@@ -45,22 +45,16 @@
 </template>
 
 <script>
-import confirm from "./Confirm.vue";
-import personalSignal from "./PersonSignal.vue";
-import initContract from "./InitContract.vue";
 import contract from "./Contract.vue";
-import doneContract from "./DoneContract.vue";
+import employeeSignal from "./employeeSignal.vue";
 export default {
   components: {
-    confirm,
-    personalSignal,
-    initContract,
     contract,
-    doneContract,
+    employeeSignal,
   },
   data() {
     return {
-      theSelectComponent: "personalSignal",
+      theSelectComponent: "employeeSignal",
     };
   },
   methods: {

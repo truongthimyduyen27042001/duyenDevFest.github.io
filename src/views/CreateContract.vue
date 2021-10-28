@@ -6,6 +6,7 @@
         class="step-create init-contract"
         @click="setSelectComponent('personalSignal')"
         :class="{ active: isActive('personalSignal') }"
+        :contract="contract"
       >
         <div class="step" :class="{ stepActive: isActive('personalSignal') }">
           1
@@ -78,6 +79,92 @@ export default {
   },
   data() {
     return {
+      contract: {
+        id:
+          Math.floor(Math.random() * 100) +
+          "HDLD-" +
+          new Date().getFullYear() +
+          "/ABC/XYZ/",
+        name: "Hợp đồng lao động",
+        description: "Hợp đồng lao động công ty Paradox Vietnam",
+        steps: [
+          {
+            description: "Nhập thông tin cá nhân",
+          },
+          {
+            description: "Nhập thông tin công việc",
+          },
+          {
+            description: "Xác nhận",
+          },
+        ],
+        questions: [
+          {
+            key: "company_name",
+            question: "Tên Công ty",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            key: "employee_name",
+            question: "Tên nhân viên",
+            type: "",
+            answer: "",
+            style: {
+              width: "40%",
+            },
+          },
+          {
+            key: "employee_id",
+            question: "Số chứng minh nhân dân",
+            type: "",
+            answer: "",
+            style: {
+              width: "40%",
+            },
+          },
+          {
+            key: "employee_email",
+            question: "Địa chỉ email",
+            type: "",
+            answer: "",
+            disabled: true,
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Địa chỉ",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Ngày sinh nhân viên",
+            type: "",
+            answer: "",
+            style: {
+              width: "40%",
+            },
+          },
+          {
+            key: "employee_salary",
+            question: "Lương nhân viên",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+        ],
+        employeeSignedAt: new Date(),
+        companySignedAt: new Date(),
+      },
       theSelectComponent: "personalSignal",
     };
   },

@@ -21,6 +21,15 @@
           <router-link to="/">Home</router-link>
         </li>
         <li
+          v-if="userRole === '1'"
+          class="item-nav"
+          @click="currentPage = 'Contract'"
+          :class="currentPage == 'Contract' ? 'active' : ''"
+        >
+          <router-link to="/EmployeeContract">Contract</router-link>
+        </li>
+        <li
+          v-else
           class="item-nav"
           @click="currentPage = 'Create'"
           :class="currentPage == 'Create' ? 'active' : ''"
@@ -78,7 +87,7 @@
           class="item-nav account account__login"
           onMouseEnter="{showPopover}"
           onMouseLeave="{hidePopover}"
-          v-if="isLogin"
+          v-if="this.user"
         >
           <svg
             aria-hidden="true"
@@ -96,12 +105,7 @@
               d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
             />
           </svg>
-          <img
-            src="https://scontent.fhan14-1.fna.fbcdn.net/v/t1.15752-9/246363487_580700436528500_8455566915423897883_n.png?_nc_cat=101&ccb=1-5&_nc_sid=ae9488&_nc_ohc=BfdZnkOoiIIAX_eJI5I&_nc_ht=scontent.fhan14-1.fna&oh=ca9d9a4db93b2c397344beb51660eb53&oe=6178B361"
-            alt=""
-            class="item-nav__img"
-          />
-          <p>Truong my duyen</p>
+          <p>{{ user.name }}</p>
           <div class="text-center my-3 control__account">
             <b-button id="popover-target-1">
               <svg
@@ -131,7 +135,7 @@
                   <a class="nav-menu__link">Tài khoản</a>
                 </li>
                 <li>
-                  <a class="nav-menu__link"> Đăng xuất </a>
+                  <a class="nav-menu__link" @click="logOut()"> Đăng xuất </a>
                 </li>
               </ul>
             </b-popover>
@@ -140,7 +144,6 @@
         <li v-else class="item-nav account">
           <button @click="login()">Login</button>
         </li>
-        <li><button @click="traodoi()">Chuyen du lieu</button></li>
       </ul>
     </div>
   </div>
@@ -148,13 +151,16 @@
 
 <script>
 import axios from "axios";
+import http from "../api/http-common.js";
 export default {
   name: "Navbar",
   data() {
     return {
+      userRole: "2",
       isLogin: false,
       currentPage: "Home",
-      users: [],
+      user: false,
+      userLogin: [],
       userTemplte: {
         name: "Duyen",
         phoneNumber: "0799634057",
@@ -175,13 +181,26 @@ export default {
   methods: {
     async login() {
       const googleUser = await this.$gAuth.signIn();
-      const authResponse = googleUser.getAuthResponse();
-      console.log(authResponse);
-      // const userAccount = await axios.post(
-      //   "https://e-con.herokuapp.com/a/api/signin/",
-      //   authResponse
-      // );
-      localStorage.setItem("auth", JSON.stringify(authResponse.data));
+      // const authResponse = googleUser.getAuthResponse();
+      // console.log(authResponse);
+      console.log(googleUser);
+      const userLogin = {
+        name: googleUser.mt.Re,
+        email: googleUser.mt.Xt,
+      };
+      const userLoginFetchAPI = await http.post(
+        "/a/api/auth/signin/",
+        userLogin
+      );
+      console.log(userLoginFetchAPI.data.data);
+      this.user = {
+        id: userLoginFetchAPI.data.data.id,
+        email: userLoginFetchAPI.data.data.email,
+        name: "Kim Chi Le",
+        role: "1",
+      };
+      console.log(this.user.name);
+      localStorage.setItem("auth", JSON.stringify(userLoginFetchAPI.data));
       console.log("Dang nhap thanh cong!");
     },
     async traodoi() {
@@ -198,6 +217,13 @@ export default {
       );
       console.log(userAccount);
       console.log("djsansas");
+    },
+    async logOut() {
+      const googleUser = await this.$gAuth.getAuthInstance();
+      googleUser.signOut().then(function () {
+        console.log("user signed out");
+      });
+      console.log(googleUser);
     },
   },
 };

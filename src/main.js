@@ -15,7 +15,9 @@ import "vuetify/dist/vuetify.min.css";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import { firestorePlugin } from "vuefire";
+import Popover from "vue-js-popover";
 
+Vue.use(Popover);
 Vue.component("v-select", vSelect);
 Vue.use(Vuetify);
 Vue.use(firestorePlugin);
