@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div class="header">
+    <div class="header mb-5">
       <h1>Khởi tạo hợp đồng</h1>
+      <button type="button" class="btn btn-primary" @click="getContract()">
+        Khởi tạo
+      </button>
     </div>
     <div class="contract">
       <div class="contract-header">
@@ -262,6 +265,7 @@
 
 <script>
 import _cloneDeep from "lodash/cloneDeep";
+// import http from "../api/http-common.js";
 export default {
   name: "contract",
   model: {
@@ -293,6 +297,8 @@ export default {
   methods: {
     updateContract() {
       this.$emit("update", this.myContract);
+    },
+    getContract() {
     },
   },
 };

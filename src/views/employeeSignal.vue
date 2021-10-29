@@ -70,7 +70,11 @@
                   <span class="error" v-if="question.isRequired">*</span></label
                 >
                 <div class="field-input">
-                  <input type="text" placeholder="Câu trả lời của bạn" />
+                  <input
+                    v-model="question.answer"
+                    type="text"
+                    placeholder="Câu trả lời của bạn"
+                  />
                   <div
                     class="input-outline"
                     :class="question.checkAns ? '' : 'input-outline-error'"
@@ -102,8 +106,8 @@
           <div v-else>
             <div
               class="list-form-question"
-              v-for="question in employeeQuestions"
-              :key="question.id"
+              v-for="(question, index) in employeeQuestions"
+              :key="'question-' + index"
             >
               <form
                 action=""
@@ -115,7 +119,11 @@
                   <span class="error" v-if="question.isRequired">*</span></label
                 >
                 <div class="field-input">
-                  <input type="text" placeholder="Câu trả lời của bạn" />
+                  <input
+                    v-model="question.answer"
+                    type="text"
+                    placeholder="Câu trả lời của bạn"
+                  />
                   <div
                     class="input-outline"
                     :class="question.checkAns ? '' : 'input-outline-error'"
@@ -241,76 +249,63 @@ export default {
         employee_Sex: "",
         employee_homeTown: "",
         empoyee_address: "",
+        employee_CMND: "",
         employee_dateConfirm: "",
         employee_level: "",
         employee_major: "",
       },
       employeeQuestions: [
         {
-          id: "question11",
+          key: "employee_name",
           label: "Bên B (Người lao động)",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question112222",
-          label: "Địa chỉ email",
+          key: "employee_dateOfBirth",
+          label: "Ngày sinh nhật",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question12",
-          label: "Ngày/tháng/năm sinh",
-          answer: "",
-          checkAns: true,
-          isRequired: true,
-        },
-        {
-          id: "question13",
+          key: "employee_Sex",
           label: "Giới tính",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question14",
-          label: "Quê quán",
+          key: "empoyee_address",
+          label: "Địa chỉ",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question15",
-          label: "Địa điểm thường trú",
+          key: "employee_CMND",
+          label: "Số chứng minh nhân dân",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question16",
-          label: "Số CMND",
+          key: "employee_dateConfirm",
+          label: "Ngày xác nhận",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question17",
-          label: "Ngày cấp",
-          answer: "",
-          checkAns: true,
-          isRequired: true,
-        },
-        {
-          id: "question18",
+          key: "employee_level",
           label: "Trình độ",
           answer: "",
           checkAns: true,
           isRequired: true,
         },
         {
-          id: "question19",
+          key: "employee_major",
           label: "Chuyên ngành",
           answer: "",
           checkAns: true,
@@ -341,25 +336,32 @@ export default {
       this.selectedRole = newRole;
     },
     async sendData() {
-      console.log();
-      console.log("@@@@@@@@@@@@@22");
+      const duLieu = this.employeeQuestions;
+      console.log(this.employeeQuestions[0].label);
+      const mang = [];
+      let _obj;
+      duLieu.map((item) => {
+        _obj = {
+          [item.key]: item.answer,
+        };
+        mang.push(_obj);
+      });
       this.newEmployee = {
-        id: "hihihihihihhihihi",
-        name: "Ten nguoi lao dong",
-        email: "myduyentruong@gmail.com",
-        dateOfBirth: "20/11/2020",
-        sex: "male",
-        homeTown: "Da Nang",
-        address: "Dia chi thuong tru2222",
-        CMND: "20181515151515",
-        dateCertification: "31/07/2021",
-        level: "Trung cấp",
-        major: "CNTT",
-        phone: "0789952262",
+        id: "dasasassas",
+        name: mang[0].employee_name,
+        dateOfBirth: mang[1].employee_dateOfBirth,
+        sex: mang[2].employee_Sex,
+        address: mang[3].empoyee_address,
+        CMND: mang[4].employee_CMND,
+        dateConfirm: mang[5].employee_dateConfirm,
+        level: mang[6].employee_level,
+        major: mang[7].employee_major,
       };
+      console.log(this.newEmployee.name);
+      console.log(this.newEmployee.dateOfBirth);
       const userAccount = await http.post("/a/api/employee/", this.newEmployee);
+      console.log("Thanh cong!!!!!");
       console.log(userAccount);
-      console.log("djsansas");
     },
   },
 };

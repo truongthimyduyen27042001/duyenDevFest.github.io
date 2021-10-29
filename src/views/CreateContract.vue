@@ -306,7 +306,6 @@ export default {
       return this.theSelectComponent === "doneContract";
     },
   },
-  mounted: {},
 };
 </script>
 

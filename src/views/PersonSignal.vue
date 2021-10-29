@@ -96,7 +96,7 @@
             <button
               type="button"
               class="btn btn-secondary"
-              @click="addNewField()"
+              @click="addNewField"
             >
               Thêm
             </button>
@@ -157,9 +157,7 @@
                 </form>
               </div>
             </div>
-            <button type="button" class="btn btn-success" @click="sendData()">
-              Gửi
-            </button>
+            <button class="btn btn-success" @click="sendData">Gửi</button>
           </div>
         </div>
       </div>
@@ -341,46 +339,47 @@ export default {
     update: function (newRole) {
       this.selectedRole = newRole;
     },
-    async sendData() {
-        console.log("@@@@@@@@@@@@@22");
-        console.log(this.selectedRole);
-        const duLieu = this.employerInfo;
-        let _obj;
-        const mang = [];
-        duLieu.map((item) => {
-          _obj = {
-            [item.key]: item.answer,
-          };
-          mang.push(_obj);
-        });
-        // const newObj = Object.assign({},_obj)
-        // console.log(newObj);
-        // const arrToObj = Object.assign({},mang);
-        // console.log(arrToObj);
-        const userAccount = await http.post("/a/api/employee/", mang);
-        console.log("@@@@@@@@@");
-        console.log(userAccount);
-        // this.newEmployee = {
-        //   id: "kkkkk",
-        //   dataSigned: "12/12/2020",
-        //   numberContract: "0115150",
-        //   name: "Ten nguoi thue lao dong",
-        //   email: "myduyentruong@gmail.com",
-        //   dateOfBirth: "20/11/2020",
-        //   sex: "male",
-        //   homeTown: "Da Nang",
-        //   address: "Dia chi thuong tru",
-        //   CMND: "20181515151515",
-        //   dateCertification: "31/07/2021",
-        //   level: "Trung cấp",
-        //   major: "CNTT",
-        //   phone: "0789952262",
-        // };
-        // console.log(this.newEmployee);
-        // const userAccount = await http.post("/a/api/employee/", this.employer);
-        // console.log(userAccount);
-        console.log("thanh cong");
-      
+    async sendData(event) {
+      event.preventDefault();
+
+      const duLieu = this.employerInfo;
+      let _obj;
+      const mang = [];
+      duLieu.map((item) => {
+        _obj = {
+          [item.key]: item.answer,
+        };
+        mang.push(_obj);
+      });
+      // const newObj = Object.assign({},_obj)
+      // console.log(newObj);
+      // const arrToObj = Object.assign({},mang);
+      // console.log(arrToObj);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const userAccount = await http.post("/a/api/employer/", mang);
+      } catch (err) {
+        console.error(err);
+      }
+      // this.newEmployee = {
+      //   id: "kkkkk",
+      //   dataSigned: "12/12/2020",
+      //   numberContract: "0115150",
+      //   name: "Ten nguoi thue lao dong",
+      //   email: "myduyentruong@gmail.com",
+      //   dateOfBirth: "20/11/2020",
+      //   sex: "male",
+      //   homeTown: "Da Nang",
+      //   address: "Dia chi thuong tru",
+      //   CMND: "20181515151515",
+      //   dateCertification: "31/07/2021",
+      //   level: "Trung cấp",
+      //   major: "CNTT",
+      //   phone: "0789952262",
+      // };
+      // console.log(this.newEmployee);
+      // const userAccount = await http.post("/a/api/employee/", this.employer);
+      // console.log(userAccount);
     },
   },
 };

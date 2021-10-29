@@ -163,7 +163,7 @@ export default {
   name: "Navbar",
   data() {
     return {
-      idRole: 1,
+      idRole: 2,
       isLogin: false,
       currentPage: "Home",
       user: false,
@@ -192,10 +192,7 @@ export default {
       );
       this.user = userLoginFetchAPI.data.data;
       localStorage.removeItem("auth");
-      console.log("Xoa thanh cong!");
       localStorage.setItem("auth", JSON.stringify(this.user));
-      console.log("Dang nhap thanh cong!");
-      console.log(JSON.parse(localStorage.getItem("auth")).role);
     },
     async traodoi() {
       const newEmployee = {
@@ -205,25 +202,17 @@ export default {
         name: "truong my duyen",
         phone: "0789952262",
       };
+      // eslint-disable-next-line no-unused-vars
       const userAccount = await axios.post(
         "https://e-con.herokuapp.com/a/api/employee/",
         newEmployee
       );
-      console.log(userAccount);
-      console.log("djsansas");
     },
     async logOut() {
       const googleUser = await this.$gAuth.getAuthInstance();
       googleUser.signOut().then(function () {
         console.log("user signed out");
       });
-      console.log(googleUser);
-    },
-  },
-  mounted: {
-    userRole() {
-      // return JSON.parse(localStorage.getItem("auth")).role;
-      return 1;
     },
   },
 };
