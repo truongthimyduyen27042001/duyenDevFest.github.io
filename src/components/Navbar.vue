@@ -21,6 +21,15 @@
           <router-link to="/">Home</router-link>
         </li>
         <li
+          v-if="idRole === 1"
+          class="item-nav"
+          @click="currentPage = 'contract'"
+          :class="currentPage == 'contract' ? 'active' : ''"
+        >
+          <router-link to="/employeeContract">Contract</router-link>
+        </li>
+        <li
+          v-else-if="idRole === 2"
           class="item-nav"
           @click="currentPage = 'Create'"
           :class="currentPage == 'Create' ? 'active' : ''"
@@ -33,6 +42,13 @@
           :class="currentPage == 'Document' ? 'active' : ''"
         >
           <router-link to="/document">Document</router-link>
+        </li>
+        <li
+          class="item-nav"
+          @click="currentPage = 'Law'"
+          :class="currentPage == 'Law' ? 'active' : ''"
+        >
+          <router-link to="/lawContract">Law</router-link>
         </li>
       </ul>
     </div>
@@ -147,11 +163,10 @@ export default {
   name: "Navbar",
   data() {
     return {
-      userRole: "2",
+      idRole: 1,
       isLogin: false,
       currentPage: "Home",
       user: false,
-      userLogin: [],
       userTemplte: {
         name: "Duyen",
         phoneNumber: "0799634057",
@@ -161,11 +176,6 @@ export default {
         bankAccount: "0484811515115BANKACCOUNT",
         issued0n: "isSuscjsdbsd",
         idNo: "1",
-      },
-      newUsers: {
-        email: "letuan1235@gmail.com",
-        fullName: "Le Tuan",
-        role: 1,
       },
     };
   },
@@ -181,8 +191,11 @@ export default {
         userLogin
       );
       this.user = userLoginFetchAPI.data.data;
+      localStorage.removeItem("auth");
+      console.log("Xoa thanh cong!");
       localStorage.setItem("auth", JSON.stringify(this.user));
       console.log("Dang nhap thanh cong!");
+      console.log(JSON.parse(localStorage.getItem("auth")).role);
     },
     async traodoi() {
       const newEmployee = {
@@ -205,6 +218,12 @@ export default {
         console.log("user signed out");
       });
       console.log(googleUser);
+    },
+  },
+  mounted: {
+    userRole() {
+      // return JSON.parse(localStorage.getItem("auth")).role;
+      return 1;
     },
   },
 };

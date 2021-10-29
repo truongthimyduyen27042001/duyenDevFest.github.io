@@ -185,6 +185,7 @@ export default {
             },
           },
           {
+            key: "employee_name",
             question: "Bên B (Tên người lao động)",
             type: "",
             answer: "",
@@ -193,6 +194,7 @@ export default {
             },
           },
           {
+            key: "employee_dateOfBirth",
             question: "Ngày/ tháng/ năm sinh",
             type: "",
             answer: "",
@@ -201,6 +203,7 @@ export default {
             },
           },
           {
+            key: "employee_Sex",
             question: "Giới tính",
             type: "",
             answer: "",
@@ -209,6 +212,7 @@ export default {
             },
           },
           {
+            key: "employee_homeTown",
             question: "Quê quán",
             type: "",
             answer: "",
@@ -218,6 +222,7 @@ export default {
             },
           },
           {
+            key: "employee_address",
             question: "Địa chỉ thường trú",
             type: "",
             answer: "",
@@ -226,6 +231,7 @@ export default {
             },
           },
           {
+            key: "employee_CMND",
             question: "Số CMND",
             type: "",
             answer: "",
@@ -234,6 +240,7 @@ export default {
             },
           },
           {
+            key: "employee_dateConform",
             question: "Ngày cấp",
             type: "",
             answer: "",
@@ -242,6 +249,7 @@ export default {
             },
           },
           {
+            key: "employee_level",
             question: "Trình độ",
             type: "",
             answer: "",
@@ -250,6 +258,7 @@ export default {
             },
           },
           {
+            key: "employee_major",
             question: "Chuyên ngành",
             type: "",
             answer: "",

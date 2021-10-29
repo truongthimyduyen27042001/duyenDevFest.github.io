@@ -235,6 +235,16 @@ export default {
         { title: "Hợp đồng ngắn hạn" },
       ],
       newEmployee: false,
+      employeeInfor: {
+        employee_name: "",
+        employee_dateOfBirth: "",
+        employee_Sex: "",
+        employee_homeTown: "",
+        empoyee_address: "",
+        employee_dateConfirm: "",
+        employee_level: "",
+        employee_major: "",
+      },
       employeeQuestions: [
         {
           id: "question11",
@@ -315,7 +325,7 @@ export default {
         isRequired: true,
       },
       isAddingNew: false,
-      selectedRole: "",
+      selectedRole: "1",
     };
   },
   methods: {
@@ -331,6 +341,7 @@ export default {
       this.selectedRole = newRole;
     },
     async sendData() {
+      console.log();
       console.log("@@@@@@@@@@@@@22");
       this.newEmployee = {
         id: "hihihihihihhihihi",
@@ -338,7 +349,7 @@ export default {
         email: "myduyentruong@gmail.com",
         dateOfBirth: "20/11/2020",
         sex: "male",
-        homeTown: "Da Nang", 
+        homeTown: "Da Nang",
         address: "Dia chi thuong tru2222",
         CMND: "20181515151515",
         dateCertification: "31/07/2021",

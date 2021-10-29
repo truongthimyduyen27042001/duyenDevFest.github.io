@@ -52,6 +52,16 @@ export default {
     contract,
     employeeSignal,
   },
+  model: {
+    props: "contract",
+    event: "update",
+  },
+  props: {
+    contract: {
+      type: Object,
+      require: true,
+    },
+  },
   data() {
     return {
       theSelectComponent: "employeeSignal",
