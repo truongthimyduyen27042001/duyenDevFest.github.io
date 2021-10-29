@@ -21,15 +21,6 @@
           <router-link to="/">Home</router-link>
         </li>
         <li
-          v-if="userRole === '1'"
-          class="item-nav"
-          @click="currentPage = 'Contract'"
-          :class="currentPage == 'Contract' ? 'active' : ''"
-        >
-          <router-link to="/EmployeeContract">Contract</router-link>
-        </li>
-        <li
-          v-else
           class="item-nav"
           @click="currentPage = 'Create'"
           :class="currentPage == 'Create' ? 'active' : ''"
@@ -105,7 +96,7 @@
               d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
             />
           </svg>
-          <p>{{ user.name }}</p>
+          <p>{{ user.email }}</p>
           <div class="text-center my-3 control__account">
             <b-button id="popover-target-1">
               <svg
@@ -181,9 +172,6 @@ export default {
   methods: {
     async login() {
       const googleUser = await this.$gAuth.signIn();
-      // const authResponse = googleUser.getAuthResponse();
-      // console.log(authResponse);
-      console.log(googleUser);
       const userLogin = {
         name: googleUser.mt.Re,
         email: googleUser.mt.Xt,
@@ -192,15 +180,8 @@ export default {
         "/a/api/auth/signin/",
         userLogin
       );
-      console.log(userLoginFetchAPI.data.data);
-      this.user = {
-        id: userLoginFetchAPI.data.data.id,
-        email: userLoginFetchAPI.data.data.email,
-        name: "Kim Chi Le",
-        role: "1",
-      };
-      console.log(this.user.name);
-      localStorage.setItem("auth", JSON.stringify(userLoginFetchAPI.data));
+      this.user = userLoginFetchAPI.data.data;
+      localStorage.setItem("auth", JSON.stringify(this.user));
       console.log("Dang nhap thanh cong!");
     },
     async traodoi() {

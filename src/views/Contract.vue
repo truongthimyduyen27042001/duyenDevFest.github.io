@@ -23,36 +23,21 @@
         <p>Căn cứ nhu cầu và năng lực của hai bên</p>
         <p><span>Hôm nay, tại:</span><input type="text" name="" /></p>
         <p>Chúng tôi gồm:</p>
-        <p class="fw-bold">
-          BÊN A (NGƯỜI SỬ DỤNG LAO ĐỘNG):<input type="text" name="" />
-        </p>
-        <p>
-          <span>Đại diện: </span><input type="text" name="" />
-          <span>Chức vụ: <input type="text" name="" /></span>
-        </p>
-        <p><span>Quốc tịch:</span><input type="text" name="" /></p>
-        <p><span>Địa chỉ:</span><input type="text" name="" /></p>
-        <p><span>Điện thoại:</span><input type="text" name="" /></p>
-        <p><span>Mã số thuế:</span><input type="text" name="" /></p>
-        <p><span>Số tài khoản:</span><input type="text" name="" /></p>
-        <p><span>Tài khoản:</span><input type="text" name="" /></p>
-        <p class="fw-bold">
-          BÊN B (NGƯỜI LAO ĐỘNG):<input type="text" name="" />
-        </p>
-        <p>
-          <span>Ngày tháng năm sinh: </span><input type="text" name="" />
-          <span>Giới tính: <input type="text" name="" /></span>
-        </p>
-        <p><span>Quê quán:</span><input type="text" name="" /></p>
-        <p><span>Địa chỉ thường trú:</span><input type="text" name="" /></p>
-        <p>
-          <span>Số CMND: </span><input type="text" name="" />
-          <span>Ngày cấp: <input type="text" name="" /></span>
-        </p>
-        <p>
-          <span>Trình độ: </span><input type="text" name="" />
-          <span>Chuyên ngành: <input type="text" name="" /></span>
-        </p>
+        <div style="display: flex; flex-wrap: wrap">
+          <div
+            class="list-info form-group d-flex text-align-start"
+            v-for="(question, index) in myContract.questions"
+            :key="'question-' + index"
+            :style="question.style"
+          >
+            <label for="">{{ question.question }}</label>
+            <input
+              type="text"
+              :disabled="question.disabled"
+              v-model="question.answer"
+            />
+          </div>
+        </div>
         <p>
           Sau khi thỏa thuận, hai bên thống nhất ký Hợp đồng lao động (HĐLĐ) với
           các điều khoản sau đây:
@@ -93,7 +78,7 @@
           - Hoàn thành những công việc khác tùy thuộc theo yêu cầu của Công ty
           và theo quyết định của Ban Giám đốc.
         </p>
-        <div class="fw-bold">Điều 2: Chế độ làm việc</div>
+        <div class="fw-bold text-left">Điều 2: Chế độ làm việc</div>
         <p><span>1. Thời gian làm việc:</span><input type="text" name="" /></p>
         <p>
           2. Do tính chất công việc, nhu cầu kinh doanh hay nhu cầu của tổ
@@ -276,7 +261,41 @@
 </template>
 
 <script>
-export default {};
+import _cloneDeep from "lodash/cloneDeep";
+export default {
+  name: "contract",
+  model: {
+    prop: "contract",
+    event: "update",
+  },
+  props: {
+    contract: {
+      type: Object,
+      required: true,
+    },
+  },
+  mounted() {
+    this.myContract = _cloneDeep(this.contract);
+  },
+  data() {
+    return {
+      myContract: {},
+    };
+  },
+  watch: {
+    myContract: {
+      handler() {
+        this.updateContract();
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    updateContract() {
+      this.$emit("update", this.myContract);
+    },
+  },
+};
 </script>
 
 <style scoped>

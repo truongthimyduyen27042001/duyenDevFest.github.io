@@ -1,6 +1,6 @@
 <template>
   <div class="create-container">
-    <h2 class="content">Tạo hợp đồng</h2>
+    <h2 class="content">{{ contract.name }}</h2>
     <ul class="list-step-create-contract">
       <li
         class="step-create init-contract"
@@ -40,7 +40,7 @@
         Hoàn tất
       </li>
     </ul>
-    <component :is="theSelectComponent"></component>
+    <component :is="theSelectComponent" :contract="contract"></component>
 
     <div class="control-step">
       <button
@@ -69,6 +69,7 @@ import personalSignal from "./PersonSignal.vue";
 import initContract from "./InitContract.vue";
 import contract from "./Contract.vue";
 import doneContract from "./DoneContract.vue";
+
 export default {
   components: {
     confirm,
@@ -79,6 +80,7 @@ export default {
   },
   data() {
     return {
+      activeTab: 0,
       contract: {
         id:
           Math.floor(Math.random() * 100) +
@@ -109,8 +111,17 @@ export default {
             },
           },
           {
-            key: "employee_name",
-            question: "Tên nhân viên",
+            key: "employer_name",
+            question: "Tên đại diện",
+            type: "",
+            answer: "",
+            style: {
+              width: "60%",
+            },
+          },
+          {
+            key: "employer_position",
+            question: "Chức vụ",
             type: "",
             answer: "",
             style: {
@@ -118,17 +129,8 @@ export default {
             },
           },
           {
-            key: "employee_id",
-            question: "Số chứng minh nhân dân",
-            type: "",
-            answer: "",
-            style: {
-              width: "40%",
-            },
-          },
-          {
-            key: "employee_email",
-            question: "Địa chỉ email",
+            key: "employer_country",
+            question: "Quốc tịch",
             type: "",
             answer: "",
             disabled: true,
@@ -137,6 +139,7 @@ export default {
             },
           },
           {
+            key: "employer_address",
             question: "Địa chỉ",
             type: "",
             answer: "",
@@ -145,20 +148,114 @@ export default {
             },
           },
           {
-            question: "Ngày sinh nhân viên",
-            type: "",
-            answer: "",
-            style: {
-              width: "40%",
-            },
-          },
-          {
-            key: "employee_salary",
-            question: "Lương nhân viên",
+            key: "employer_numberPhone",
+            question: "Số điện thoại",
             type: "",
             answer: "",
             style: {
               width: "100%",
+            },
+          },
+          {
+            key: "employer_taxNumber",
+            question: "Mã số thuế",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            key: "employer_accountNumber",
+            question: "Số tài khoản",
+            type: "",
+            answer: "",
+            style: {
+              width: "60%",
+            },
+          },
+          {
+            key: "employer_bank",
+            question: "Tên ngân hàng",
+            type: "",
+            answer: "",
+            disabled: true,
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Bên B (Tên người lao động)",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Ngày/ tháng/ năm sinh",
+            type: "",
+            answer: "",
+            style: {
+              width: "50%",
+            },
+          },
+          {
+            question: "Giới tính",
+            type: "",
+            answer: "",
+            style: {
+              width: "50%",
+            },
+          },
+          {
+            question: "Quê quán",
+            type: "",
+            answer: "",
+            disabled: true,
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Địa chỉ thường trú",
+            type: "",
+            answer: "",
+            style: {
+              width: "100%",
+            },
+          },
+          {
+            question: "Số CMND",
+            type: "",
+            answer: "",
+            style: {
+              width: "50%",
+            },
+          },
+          {
+            question: "Ngày cấp",
+            type: "",
+            answer: "",
+            style: {
+              width: "50%",
+            },
+          },
+          {
+            question: "Trình độ",
+            type: "",
+            answer: "",
+            style: {
+              width: "60%",
+            },
+          },
+          {
+            question: "Chuyên ngành",
+            type: "",
+            answer: "",
+            disabled: true,
+            style: {
+              width: "40%",
             },
           },
         ],
@@ -200,6 +297,7 @@ export default {
       return this.theSelectComponent === "doneContract";
     },
   },
+  mounted: {},
 };
 </script>
 

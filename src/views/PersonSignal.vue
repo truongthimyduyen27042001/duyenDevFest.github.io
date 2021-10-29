@@ -3,7 +3,18 @@
     <form action="" class="form-sign-info">
       <div class="person-info">
         <div class="userInfo-container">
-          <form action="" class="form-info from-info-account">
+          <div class="contract-info d-flex justify-content-around row">
+            <input
+              type="text"
+              class="nameContract col-8"
+              disabled="true"
+              v-model="myContract.name"
+            />
+            <button type="button" class="btn btn-primary col-2">
+              Thay đổi
+            </button>
+          </div>
+          <div class="form-info from-info-account">
             <div class="form-header"></div>
             <h5>Thông tin liên hệ</h5>
             <hr />
@@ -53,105 +64,28 @@
               </div>
             </div>
             <div class="error">* Bắt buộc</div>
-          </form>
-          <div v-if="selectedRole === 'employer'">
-            <div
-              class="list-form-question"
-              v-for="(question, index) in employerQuestions"
-              :key="question.id"
-            >
-              <form
-                action=""
-                class="form-info"
-                :class="question.checkAns ? '' : 'form-error'"
-              >
-                <label for=""
-                  >{{ question.label }}
-                  <span class="error" v-if="question.isRequired">*</span></label
-                >
-                <div class="field-input">
-                  <input
-                    v-model="employerQuestions[index].answer"
-                    :id="'anwser-' + index"
-                    type="text"
-                    placeholder="Câu trả lời của bạn"
-                  />
-                  <div
-                    class="input-outline"
-                    :class="question.checkAns ? '' : 'input-outline-error'"
-                  ></div>
-                </div>
-                <div v-if="question.checkAns"></div>
-                <div v-else class="error-require error">
-                  <svg
-                    style="width: 17px"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-prefix="fas"
-                    data-icon="exclamation-circle"
-                    class="svg-inline--fa fa-exclamation-circle fa-w-16"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-                    ></path>
-                  </svg>
-                  Đây là một câu hỏi bắt buộc
-                </div>
-              </form>
-            </div>
           </div>
-          <div v-else>
-            <div
-              class="list-form-question"
-              v-for="(question, index) in employerQuestions"
-              :key="question.id"
-            >
-              <form
-                action=""
-                class="form-info"
-                :class="question.checkAns ? '' : 'form-error'"
+          <div
+            class="list-form-question"
+            v-for="(question, index) in employerInfo"
+            :key="'question-' + index"
+          >
+            <div class="form-info">
+              <label for=""
+                >{{ question.question }} <span class="error">*</span></label
               >
-                <label for=""
-                  >{{ question.label }}
-                  <span class="error" v-if="question.isRequired">*</span></label
-                >
-                <div class="field-input">
-                  <input
-                    v-model="employerQuestions[index].answer"
-                    :id="'anwser-' + index"
-                    type="text"
-                    placeholder="Câu trả lời của bạn"
-                  />
-                  <div
-                    class="input-outline"
-                    :class="question.checkAns ? '' : 'input-outline-error'"
-                  ></div>
-                </div>
-                <div v-if="question.checkAns"></div>
-                <div v-else class="error-require error">
-                  <svg
-                    style="width: 17px"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-prefix="fas"
-                    data-icon="exclamation-circle"
-                    class="svg-inline--fa fa-exclamation-circle fa-w-16"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
-                    ></path>
-                  </svg>
-                  Đây là một câu hỏi bắt buộc
-                </div>
-              </form>
+              <div class="field-input">
+                <input
+                  v-model="question.answer"
+                  :id="'anwser-' + index"
+                  type="text"
+                  placeholder="Câu trả lời của bạn"
+                />
+                <div
+                  class="input-outline"
+                  :class="question.checkAns ? '' : 'input-outline-errorssss'"
+                ></div>
+              </div>
             </div>
           </div>
           <div class="person-choice d-flex">
@@ -236,6 +170,7 @@
 <script>
 import http from "../api/http-common.js";
 import _cloneDeep from "lodash/cloneDeep";
+
 export default {
   model: {
     prop: "contract",
@@ -245,7 +180,7 @@ export default {
     contract: {
       type: Object,
       require: true,
-    }
+    },
   },
   data() {
     return {
@@ -361,11 +296,33 @@ export default {
         isRequired: true,
       },
       isAddingNew: false,
-      selectedRole: "",
+      selectedRole: "2",
     };
   },
   mounted() {
     this.myContract = _cloneDeep(this.contract);
+  },
+  computed: {
+    employerInfo: function () {
+      const dataRequires = [
+        "company_name",
+        "employer_name",
+        "employer_position",
+        "employer_country",
+        "employer_numberPhone",
+        "employer_taxNumber",
+        "employer_accountNumber",
+        "employer_bank",
+      ];
+      const employerInfo = [];
+      dataRequires.forEach((key) => {
+        const questionIndex = this.contract.questions.findIndex(
+          (question) => question.key === key
+        );
+        employerInfo.push(this.contract.questions[questionIndex]);
+      });
+      return employerInfo;
+    },
   },
   watch: {
     myContract: {
@@ -373,9 +330,12 @@ export default {
         this.updateContract();
       },
       deep: true,
-    }
+    },
   },
   methods: {
+    updateContract() {
+      console.log("@@@@@@@@@2");
+    },
     addNewField() {
       this.isAddingNew = !this.isAddingNew;
     },
@@ -414,6 +374,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nameContract {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
 .modal {
   display: none;
   position: fixed;
@@ -489,6 +456,9 @@ export default {
 .userInfo-container {
   width: fit-content;
   margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .content {
   font-size: 20px;
@@ -511,6 +481,11 @@ form {
 .form-info {
   position: relative;
   background: #fff;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+  width: 640px;
+  margin-top: 30px;
 }
 .form-info label {
   margin-bottom: 20px;
