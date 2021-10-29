@@ -1,42 +1,62 @@
 <template>
-  <div id="app">
-    <component :is="layout">
-      <router-view />
-    </component>
-  </div>
+  <component
+    :is="layout"
+    :class="{
+      dark: isDarkMode,
+    }"
+  >
+    <router-view @layout="updateLayout" />
+  </component>
 </template>
 
 <script>
-import defaultLayout from "./layout/default.vue";
-import unauthLayout from "./layout/unauth.vue";
+// Import layout components here
+import defaultLayout from '@layouts/default.vue'
+import blankLayout from '@layouts/blank.vue'
+// Auth
+import unauthLayout from '@layouts/auth/unauth.vue'
+import authLayout from '@layouts/auth/index.vue'
+// Error
+import errorLayout from '@layouts/error/index.vue'
+// Responsive
+import mobileLayout from '@layouts/responsive/mobile.vue'
+
+import { camelCase } from 'lodash'
+// App component
 export default {
+  name: 'App',
   components: {
     defaultLayout,
+    blankLayout,
     unauthLayout,
+    authLayout,
+    errorLayout,
+    mobileLayout,
   },
-  computed: {
-    layout() {
-      if (this.$route.meta.layout === "unauth") return "unauthLayout";
-      else return "defaultLayout";
+  data() {
+    return {
+      layout: 'defaultLayout',
+      isDarkMode: false,
+    }
+  },
+  methods: {
+    updateLayout(layout) {
+      this.layout = layout
+    },
+    toggleDarkMode() {
+      this.isDarkMode = this.isDarkMode ? false : true
     },
   },
-};
+  created() {
+    // Use busEvent to trigger these listeners
+    this.$bus.$on('toggleDarkMode', () => {
+      this.toggleDarkMode()
+    })
+
+    this.$bus.$on('layout', (layout) => {
+      // For example: $bus.$emit('layout', 'unauth') will trigger 'unauthLayout'
+      this.updateLayout(camelCase(layout + '_layout'))
+    })
+  },
+}
 </script>
-
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Cabin|Herr+Von+Muellerhoff|Source+Sans+Pro:400,900&display=swap");
-
-* {
-  margin: 0px;
-  font-family: "Roboto", sans-serif;
-  padding: 0px;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>

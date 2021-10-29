@@ -1,62 +1,35 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import authPages from '@/pages/auth/route'
+import contract from '@/pages/contract/route'
+import dashboard from '@/pages/dashboard/route'
+import profile from '@/pages/profile/route'
+import sandbox from '@/core/pages/sandbox/route'
+import error500 from '@/core/pages/error/500/route'
+import error404 from '@/core/pages/error/404/route'
+// Middleware
+import { auth } from '@middleware/auth'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home,
-  },
-  {
-    path: "/userInfo",
-    name: "userInfo",
-    component: () => import("../views/UserInfo.vue"),
-  },
-  {
-    path: "/document",
-    name: "document",
-    component: () => import("../views/Document.vue"),
-  },
-  {
-    path: "/employeeContract",
-    name: "employeeContract",
-    component: () => import("../views/employeeContract.vue"),
-  },
-  {
-    path: "/lawContract",
-    name: "Law",
-    component: () => import("../views/Law.vue"),
-  },
-  {
-    path: "/auth/login",
-    name: "login",
-    component: () => import("../views/Login.vue"),
-    meta: { layout: "unauth" },
-  },
-  {
-    path: "/auth/register",
-    name: "register",
-    component: () => import("../views/Register.vue"),
-    meta: { layout: "unauth" },
-  },
-  {
-    path: "/createContract",
-    name: "createContract",
-    component: () => import("../views/CreateContract"),
-  },
-  {
-    path: "*",
-    component: () => import("../views/NotFound.vue"),
-  },
-];
+  authPages,
+  contract,
+  dashboard,
+  profile,
+  // Core pages
+  sandbox,
+  error500,
+  error404,
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+// Global middleware
+router.beforeEach(auth)
+
+export default router
